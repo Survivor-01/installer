@@ -182,6 +182,17 @@ main {
     gap: 0.5rem;
 }
 
+/* 软件标题链接样式 */
+.software-title-link {
+    color: var(--text-secondary) !important;
+    text-decoration: none !important;
+    transition: color 0.3s ease;
+}
+
+.software-title-link:hover {
+    color: var(--primary-color) !important;
+}
+
 /* 手机端二维码图标 */
 .mobile-qr-icon {
     position: relative;
