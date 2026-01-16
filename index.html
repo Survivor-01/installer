@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <button class="theme-toggle" id="themeToggle" aria-label="切换主题">
+        <span class="theme-icon">🌙</span>
+    </button>
     <div class="container">
         <header>
             <h1>
@@ -195,5 +198,49 @@
             <p>&copy; 2026 收银相关软件下载中心 | 如有问题请联系技术支持</p>
         </footer>
     </div>
+
+    <script>
+        // 立即执行主题设置,避免闪烁
+        (function() {
+            const html = document.documentElement;
+            const savedTheme = localStorage.getItem('theme');
+
+            if (savedTheme) {
+                html.setAttribute('data-theme', savedTheme);
+            } else {
+                // 根据时间自动切换主题
+                const hour = new Date().getHours();
+                const isDayTime = hour >= 6 && hour < 18;
+                const theme = isDayTime ? 'light' : 'dark';
+                html.setAttribute('data-theme', theme);
+            }
+        })();
+
+        // 主题切换功能
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('themeToggle');
+            const themeIcon = themeToggle.querySelector('.theme-icon');
+            const html = document.documentElement;
+
+            // 更新主题图标
+            function updateThemeIcon(theme) {
+                themeIcon.textContent = theme === 'dark' ? '☀️' : '🌙';
+            }
+
+            // 初始化图标
+            const currentTheme = html.getAttribute('data-theme') || 'dark';
+            updateThemeIcon(currentTheme);
+
+            // 切换主题
+            themeToggle.addEventListener('click', () => {
+                const currentTheme = html.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+                html.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                updateThemeIcon(newTheme);
+            });
+        });
+    </script>
 </body>
 </html>
