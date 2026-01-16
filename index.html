@@ -235,22 +235,24 @@
                 <div class="software-group">
                     <h3>芯烨打印机</h3>
                     <div class="download-grid">
-                        <a href="software/printer/xprinter/芯烨58、80、76票据系列通用驱动.2025.06.10.1.exe" class="download-card" data-tooltip="1">
+                        <a href="software/printer/xprinter/芯烨58、80、76票据系列通用驱动.2025.06.10.1.exe" class="download-card">
                             <span class="card-icon">🖨️</span>
                             <span class="card-title">58/80/76票据系列</span>
                             <span class="card-version">v2025.06.10.1</span>
-                            <span class="tooltip-icon">ℹ️</span>
+                            <span class="tooltip-icon tooltip-trigger">ℹ️</span>
                             <span class="driver-tooltip">
+                                <button class="driver-tooltip-close" onclick="event.stopPropagation();">×</button>
                                 <strong>芯烨 58/80/76系列通用驱动</strong><br>
                                 适用Xprinter芯烨58mm、80mm、76系列热敏票据打印机全系所有产品型号
                             </span>
                         </a>
-                        <a href="software/printer/xprinter/Xprinter_2024.2_M-1.exe" class="download-card" data-tooltip="2">
+                        <a href="software/printer/xprinter/Xprinter_2024.2_M-1.exe" class="download-card">
                             <span class="card-icon">🏷️</span>
                             <span class="card-title">2寸/3寸标签系列</span>
                             <span class="card-version">v2024.2</span>
-                            <span class="tooltip-icon">ℹ️</span>
+                            <span class="tooltip-icon tooltip-trigger">ℹ️</span>
                             <span class="driver-tooltip">
+                                <button class="driver-tooltip-close" onclick="event.stopPropagation();">×</button>
                                 <strong>芯烨2寸3寸标签系列产品驱动</strong><br>
                                 适用Xprinter芯烨2寸/3寸系列标签机、便携式/嵌入式标签机产品T271U,T202UA,200B,233B,235B,245B,246B,236B,236BL,237B,237BL,243B,T371U,300B,320B,330B,350B,350BM,358B,358BM,360B,365B,370B,370BM,T302F,P301G,P201G,P201A,P323B,P324B等机型
                             </span>
@@ -324,6 +326,60 @@
                 html.setAttribute('data-theme', newTheme);
                 localStorage.setItem('theme', newTheme);
                 updateThemeIcon(newTheme);
+            });
+
+            // 驱动提示框点击显示功能
+            const tooltipTriggers = document.querySelectorAll('.tooltip-trigger');
+            const driverTooltips = document.querySelectorAll('.driver-tooltip');
+
+            // 点击info图标显示提示框
+            tooltipTriggers.forEach(trigger => {
+                trigger.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    // 关闭所有其他提示框
+                    driverTooltips.forEach(tooltip => {
+                        if (tooltip !== trigger.nextElementSibling) {
+                            tooltip.classList.remove('active');
+                        }
+                    });
+
+                    // 切换当前提示框
+                    const tooltip = trigger.nextElementSibling;
+                    tooltip.classList.toggle('active');
+                });
+            });
+
+            // 点击关闭按钮关闭提示框
+            const closeButtons = document.querySelectorAll('.driver-tooltip-close');
+            closeButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const tooltip = button.closest('.driver-tooltip');
+                    tooltip.classList.remove('active');
+                });
+            });
+
+            // 点击提示框外部关闭
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.download-card')) {
+                    driverTooltips.forEach(tooltip => {
+                        tooltip.classList.remove('active');
+                    });
+                }
+            });
+
+            // 点击下载链接时不触发提示框
+            const downloadCards = document.querySelectorAll('.download-card');
+            downloadCards.forEach(card => {
+                card.addEventListener('click', (e) => {
+                    // 如果点击的是tooltip-trigger或tooltip本身，不进行下载
+                    if (e.target.classList.contains('tooltip-trigger') ||
+                        e.target.closest('.driver-tooltip')) {
+                        e.preventDefault();
+                    }
+                });
             });
         });
     </script>
