@@ -16,76 +16,13 @@
     --border-color: #334155;
 }
 
-/* 浅色主题 */
-[data-theme="light"] {
-    --background: #f8fafc;
-    --card-bg: #ffffff;
-    --card-hover: #f1f5f9;
-    --text-primary: #1e293b;
-    --text-secondary: #64748b;
-    --border-color: #e2e8f0;
-}
-
-/* 深色主题 */
-[data-theme="dark"] {
-    --background: #0f172a;
-    --card-bg: #1e293b;
-    --card-hover: #334155;
-    --text-primary: #f1f5f9;
-    --text-secondary: #94a3b8;
-    --border-color: #334155;
-}
-
-/* 主题切换按钮 */
-.theme-toggle {
-    position: fixed;
-    top: 1rem;
-    right: 1rem;
-    width: 3rem;
-    height: 3rem;
-    border-radius: 50%;
-    border: 2px solid var(--border-color);
-    background: var(--card-bg);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    transition: all 0.3s ease;
-    z-index: 1000;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.theme-toggle:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-}
-
-.theme-toggle:active {
-    transform: scale(0.95);
-}
-
-.theme-icon {
-    display: block;
-    line-height: 1;
-}
-
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    background: var(--background);
+    background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 50%, #1e3a5f 100%);
     color: var(--text-primary);
     min-height: 100vh;
     line-height: 1.6;
     padding: 2rem 1rem;
-    transition: background 0.3s ease, color 0.3s ease;
-}
-
-[data-theme="dark"] body {
-    background: linear-gradient(135deg, var(--background) 0%, #1e1b4b 100%);
-}
-
-[data-theme="light"] body {
-    background: linear-gradient(135deg, var(--background) 0%, #e2e8f0 100%);
 }
 
 .container {
@@ -136,7 +73,6 @@ main {
     border-radius: 16px;
     padding: 1.5rem;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    transition: background 0.3s ease, border-color 0.3s ease;
 }
 
 .category-header {
@@ -244,7 +180,7 @@ main {
     border-radius: 12px;
     text-decoration: none;
     color: var(--text-primary);
-    transition: all 0.3s ease, background 0.3s ease, border-color 0.3s ease;
+    transition: all 0.3s ease;
     cursor: pointer;
 }
 
