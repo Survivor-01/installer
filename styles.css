@@ -136,6 +136,7 @@ main {
     border-radius: 16px;
     padding: 1.5rem;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    transition: background 0.3s ease, border-color 0.3s ease;
 }
 
 .category-header {
@@ -238,12 +239,12 @@ main {
     align-items: center;
     gap: 0.5rem;
     padding: 1.25rem;
-    background: var(--background);
+    background: var(--card-bg);
     border: 1px solid var(--border-color);
     border-radius: 12px;
     text-decoration: none;
     color: var(--text-primary);
-    transition: all 0.3s ease;
+    transition: all 0.3s ease, background 0.3s ease, border-color 0.3s ease;
     cursor: pointer;
 }
 

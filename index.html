@@ -200,39 +200,47 @@
     </div>
 
     <script>
+        // 立即执行主题设置,避免闪烁
+        (function() {
+            const html = document.documentElement;
+            const savedTheme = localStorage.getItem('theme');
+
+            if (savedTheme) {
+                html.setAttribute('data-theme', savedTheme);
+            } else {
+                // 根据时间自动切换主题
+                const hour = new Date().getHours();
+                const isDayTime = hour >= 6 && hour < 18;
+                const theme = isDayTime ? 'light' : 'dark';
+                html.setAttribute('data-theme', theme);
+            }
+        })();
+
         // 主题切换功能
-        const themeToggle = document.getElementById('themeToggle');
-        const themeIcon = themeToggle.querySelector('.theme-icon');
-        const html = document.documentElement;
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('themeToggle');
+            const themeIcon = themeToggle.querySelector('.theme-icon');
+            const html = document.documentElement;
 
-        // 检查本地存储的主题设置
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme) {
-            html.setAttribute('data-theme', savedTheme);
-            updateThemeIcon(savedTheme);
-        } else {
-            // 根据时间自动切换主题
-            const hour = new Date().getHours();
-            const isDayTime = hour >= 6 && hour < 18;
-            const theme = isDayTime ? 'light' : 'dark';
-            html.setAttribute('data-theme', theme);
-            updateThemeIcon(theme);
-        }
+            // 更新主题图标
+            function updateThemeIcon(theme) {
+                themeIcon.textContent = theme === 'dark' ? '☀️' : '🌙';
+            }
 
-        // 切换主题
-        themeToggle.addEventListener('click', () => {
-            const currentTheme = html.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            // 初始化图标
+            const currentTheme = html.getAttribute('data-theme') || 'dark';
+            updateThemeIcon(currentTheme);
 
-            html.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-            updateThemeIcon(newTheme);
+            // 切换主题
+            themeToggle.addEventListener('click', () => {
+                const currentTheme = html.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+                html.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                updateThemeIcon(newTheme);
+            });
         });
-
-        // 更新主题图标
-        function updateThemeIcon(theme) {
-            themeIcon.textContent = theme === 'dark' ? '☀️' : '🌙';
-        }
     </script>
 </body>
 </html>
