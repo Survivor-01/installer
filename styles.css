@@ -190,6 +190,7 @@ main {
     align-items: center;
     font-size: 1rem;
     transition: transform 0.2s ease;
+    z-index: 10000;
 }
 
 .mobile-qr-icon:hover {
@@ -209,7 +210,7 @@ main {
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s ease;
-    z-index: 9999;
+    z-index: 10001;
     pointer-events: none;
 }
 
